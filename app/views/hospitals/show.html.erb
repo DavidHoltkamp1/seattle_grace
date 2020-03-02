@@ -3,4 +3,6 @@
 <h2>Number of Doctors at Hospital: <%= @hospital.doctor_total %></h2>
 
 <h3>Great Universities Attended by Our Doctors: </h3>
-  <p><%= @hospital.unique_universities %></p>
+  <% @hospital.unique_universities.each do |university| %>
+      <p><%= university %></p>
+  <% end %>
