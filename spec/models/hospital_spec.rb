@@ -31,5 +31,25 @@ RSpec.describe Hospital, type: :model do
 
       expect(hospital1.doctor_total).to eq(2)
     end
+
+    it "unique_universities" do
+      hospital1 = Hospital.create!({name: "Cleveland Clinic"})
+
+      doctor1 = Doctor.create!({
+        name: "Alan Dreamy",
+        specialty: "Podiatry",
+        university: "Yale",
+        hospital_id: hospital1.id
+        })
+
+      doctor3 = Doctor.create({
+        name: "Chance Benner",
+        specialty: "Internal Medicine",
+        university: "Yale",
+        hospital_id: hospital1.id
+        })
+
+      expect(hospital1.unique_universities).to eq(["Yale"])
+    end
   end
 end

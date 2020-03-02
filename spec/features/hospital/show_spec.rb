@@ -32,14 +32,14 @@ RSpec.describe "As a visitor" do
         name: "Gabriel Wohl",
         specialty: "Nutrition",
         university: "Case Western",
-        hospital_id: @hospital3.id
+        hospital_id: @hospital1.id
         })
 
       @doctor5 = Doctor.create({
         name: "Steve",
         specialty: "Osteopathy",
         university: "Case Western",
-        hospital_id: @hospital2.id
+        hospital_id: @hospital1.id
         })
       @doctor6 = Doctor.create({
         name: "Dr. Strangelove",
@@ -48,18 +48,20 @@ RSpec.describe "As a visitor" do
         hospital_id: @hospital3.id
         })
 
-        @hospital1.doctors << [@doctor1, @doctor3]
         @hospital2.doctors << [@doctor2, @doctor5]
         @hospital3.doctors << [@doctor4, @doctor6]
     end
     it "I see the hospitals name, doctors and universities at the hospital" do
+      @hospital1.doctors << [@doctor1, @doctor3, @doctor4, @doctor5]
       visit "/hospitals/#{@hospital1.id}"
 
       expect(page).to have_content(@hospital1.name)
-      expect(page).to have_content("Number of Doctors at Hospital: 2")
+      expect(page).to have_content("Number of Doctors at Hospital: 4")
       expect(page).to have_content("Great Universities Attended by Our Doctors:")
       expect(page).to have_content(@doctor1.university)
       expect(page).to have_content(@doctor3.university)
+      expect(page).to have_content(@doctor4.university)
+      expect(page).to have_content('Case Western', count: 1)
     end
   end
 end

@@ -5,4 +5,8 @@ class Hospital <ApplicationRecord
   def doctor_total
     self.doctors.count
   end
+
+  def unique_universities
+    doctors.pluck(:university).uniq
+  end
 end
